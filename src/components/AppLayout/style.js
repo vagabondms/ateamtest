@@ -36,3 +36,9 @@ export const LoginMenu = styled.span`
 	align-items: center;
 	justify-content: space-around;
 `;
+
+export const GlobalLayout = styled.div`
+	display: grid;
+	grid-column: 1fr 1200px 1fr;
+	grid-row: 70px minmax(auto, auto) 70px;
+`;
