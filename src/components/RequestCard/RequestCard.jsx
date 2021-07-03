@@ -6,11 +6,11 @@ import CardTitle from '../CardTitle/CardTitle';
 import CardDescription from '../CardDescription/CardDescription';
 import CardButtons from '../CardButtons/CardButtons';
 
-const RequestCard = () => {
+const RequestCard = ({ request }) => {
 	return (
 		<CardWrapper>
-			<CardTitle />
-			<CardDescription />
+			<CardTitle request={request} />
+			<CardDescription request={request} />
 			<CardButtons />
 		</CardWrapper>
 	);

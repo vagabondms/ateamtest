@@ -8,12 +8,16 @@ export const TitleWrapper = styled.div`
 	flex-direction: column;
 	height: 100%;
 	justify-content: space-around;
-	& .title {
+`;
+
+export const PageDescription = styled.div`
+	margin-bottom: 20px;
+	& > .title {
 		font-weight: bold;
 		font-size: 20px;
 		margin-top: 30px;
 	}
-	& .description {
+	& > .description {
 		font-weight: normal;
 		font-size: 16px;
 	}
@@ -25,7 +29,7 @@ export const ConditionWrapper = styled.div`
 `;
 
 export const SelectorWrapper = styled.div`
-	width: 280px;
+	width: 310px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -36,12 +40,18 @@ export const StyledRedoOutlined = styled(RedoOutlined).attrs(props => ({
 }))`
 	font-size: 15px;
 	margin-left: 10px;
-	&:hover {
-		transition: all ease 1s;
-		transform: rotate(360deg);
-	}
 `;
 
 export const ResetWrapper = styled.span`
 	color: #2196f3;
+	&:hover {
+		cursor: pointer;
+		& > span {
+			font-weight: bold;
+		}
+		& > span:first-child {
+			transition: all ease 1s;
+			transform: rotate(360deg);
+		}
+	}
 `;

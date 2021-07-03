@@ -2,7 +2,8 @@ import React from 'react';
 
 import { CardDescriptionCategory, CardDescriptionContent, CardDescriptionWrapper } from './styles';
 
-const CardDescription = () => {
+const CardDescription = ({ request }) => {
+	const { count, amount, method, material, docs } = request;
 	return (
 		<CardDescriptionWrapper>
 			<CardDescriptionCategory>
@@ -12,10 +13,10 @@ const CardDescription = () => {
 				<div>재료</div>
 			</CardDescriptionCategory>
 			<CardDescriptionContent>
-				<div>2개</div>
-				<div>100개</div>
-				<div>밀링, 선반</div>
-				<div>알류미늄</div>
+				<div>{count ? count : docs}개</div>
+				<div>{amount}개</div>
+				<div>{method.join(', ')}</div>
+				<div>{material.join(', ')}</div>
 			</CardDescriptionContent>
 		</CardDescriptionWrapper>
 	);

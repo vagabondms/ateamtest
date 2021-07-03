@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
 	TitleWrapper,
@@ -6,25 +7,37 @@ import {
 	SelectorWrapper,
 	ResetWrapper,
 	StyledRedoOutlined,
+	PageDescription,
 } from './styles';
 
-import MethodSelector from '../MethodSelector/MethodSelector';
-import MaterialSelector from '../MaterialSelector/MaterialSelector';
+import Selector from '../Selector/Selector';
+
 import StatusSelector from '../StatusSelector/StatusSelector';
 
 const Title = () => {
+	const materialList = useSelector(state => state.materialList);
+	const methodList = useSelector(state => state.methodList);
+
+	const dispatch = useDispatch();
+
+	const onClickReset = useCallback(() => {
+		dispatch({
+			type: 'RESET',
+		});
+	}, [dispatch]);
+
 	return (
 		<TitleWrapper>
-			<div>
+			<PageDescription>
 				<div className="title">들어온 요청</div>
 				<div className="description">파트너님에게 딱 맞는 요청서를 찾아보세요.</div>
-			</div>
+			</PageDescription>
 			<ConditionWrapper>
 				<SelectorWrapper>
-					<MethodSelector />
-					<MaterialSelector />
+					<Selector list={methodList} title={'가공방식'} />
+					<Selector list={materialList} title={'재료'} />
 					<ResetWrapper>
-						<StyledRedoOutlined />
+						<StyledRedoOutlined onClick={onClickReset} />
 						<span> 필터링 리셋</span>
 					</ResetWrapper>
 				</SelectorWrapper>
