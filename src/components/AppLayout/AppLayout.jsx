@@ -3,24 +3,28 @@ import { BarcodeOutlined } from '@ant-design/icons';
 
 import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 import Footer from '../Footer/Footer';
-import Modal from '../Modal/Modal';
+import Menu from '../Menu/Menu';
 import { HeadDiv, HeaderContentWrapper, LoginMenu, LogoWrapper, GlobalLayout } from './style';
 
 const AppLayout = ({ children }) => {
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
 
-	const handleClickShowMoreButton = useCallback(() => {
+	const onClickButton = useCallback(() => {
+		setIsMenuOpened(state => !state);
+	}, []);
+
+	const onClickBackground = useCallback(() => {
 		setIsMenuOpened(state => !state);
 	}, []);
 
 	return (
 		<>
-			{isMenuOpened && <Modal />}
+			{isMenuOpened && <Menu onClickBackground={onClickBackground} />}
 			<GlobalLayout>
 				<HeadDiv>
 					<HeaderContentWrapper>
 						<LogoWrapper>
-							<ShowMoreButton handleClick={handleClickShowMoreButton} />
+							<ShowMoreButton onClickButton={onClickButton} />
 							<span id="logo">CAPA 파트너스</span>
 						</LogoWrapper>
 						<LoginMenu>

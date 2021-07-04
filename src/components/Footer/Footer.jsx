@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FooterWrapper } from './styles';
 const Footer = () => {
-	return <FooterWrapper></FooterWrapper>;
+	return <FooterWrapper>Made by MinseokKim</FooterWrapper>;
 };
 
 export default Footer;

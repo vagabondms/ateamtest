@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const ShowMore = styled.div`
+export const ShowMore = styled.span`
 	display: none;
 	@media (max-width: 360px) {
-		display: inline-block;
 		margin-right: 19px;
+		display: inline-block;
 	}
 `;

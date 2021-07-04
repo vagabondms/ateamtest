@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import './App.css';
+
 import AppLayout from './components/AppLayout/AppLayout';
 import Container from './components/Container/Container';
 import { useEffect } from 'react';

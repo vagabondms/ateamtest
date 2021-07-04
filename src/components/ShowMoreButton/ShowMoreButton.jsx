@@ -2,10 +2,10 @@ import React from 'react';
 import { ShowMore } from './styles';
 import { MenuOutlined } from '@ant-design/icons';
 
-const ShowMoreButton = ({ handleClickShowMoreButton }) => {
+const ShowMoreButton = ({ onClickButton }) => {
 	return (
-		<ShowMore onClick={handleClickShowMoreButton}>
-			<MenuOutlined />
+		<ShowMore>
+			<MenuOutlined onClick={onClickButton} />
 		</ShowMore>
 	);
 };

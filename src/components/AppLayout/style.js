@@ -48,9 +48,10 @@ export const GlobalLayout = styled.div`
 		'footer footer footer';
 	grid-template-columns: 1fr 1200px 1fr;
 	grid-template-rows: 70px minmax(auto, auto) 70px;
-
 	@media (max-width: 360px) {
 		display: flex;
 		flex-direction: column;
 	}
+	height: 100vh;
+	overflow: scroll;
 `;

@@ -28,7 +28,6 @@ export const PageDescription = styled.div`
 
 export const ConditionWrapper = styled.div`
 	display: flex;
-
 	justify-content: space-between;
 	@media (max-width: 360px) {
 		flex-direction: column;
@@ -39,6 +38,9 @@ export const SelectorWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	@media (max-width: 360px) {
+		justify-content: start;
+	}
 `;
 
 export const StyledRedoOutlined = styled(RedoOutlined).attrs(props => ({
