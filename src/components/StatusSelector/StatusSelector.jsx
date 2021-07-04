@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledSwitch } from './styles';
+import { StyledSwitch, SwitchWrapper } from './styles';
 
 const StatusSelector = () => {
 	const dispatch = useDispatch();
@@ -14,10 +14,10 @@ const StatusSelector = () => {
 	}, [isOngoingFilterActive, dispatch]);
 
 	return (
-		<div>
+		<SwitchWrapper>
 			<StyledSwitch onChange={onSwitchChange} />
 			상담 중인 요청만 보기
-		</div>
+		</SwitchWrapper>
 	);
 };
 

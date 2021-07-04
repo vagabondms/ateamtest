@@ -8,6 +8,9 @@ export const TitleWrapper = styled.div`
 	flex-direction: column;
 	height: 100%;
 	justify-content: space-around;
+	@media (max-width: 360px) {
+		padding: 0 23px;
+	}
 `;
 
 export const PageDescription = styled.div`
@@ -25,7 +28,11 @@ export const PageDescription = styled.div`
 
 export const ConditionWrapper = styled.div`
 	display: flex;
+
 	justify-content: space-between;
+	@media (max-width: 360px) {
+		flex-direction: column;
+	}
 `;
 
 export const SelectorWrapper = styled.div`
