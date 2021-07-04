@@ -27,26 +27,19 @@ const rootReducer = (state = initialState, action) => {
 				methodFilter: [],
 				materialFilter: [],
 			};
-		case 'ADD_TO_MATERIAL_FILTER':
-			return {
-				...state,
-				materialFilter: [...state.materialFilter, action.data],
-			};
-		case 'REMOVE_FROM_MATERIAL_FILTER':
-			return {
-				...state,
-				materialFilter: state.materialFilter.filter(el => el !== action.data),
-			};
-		case 'ADD_TO_METHOD_FILTER':
-			return {
-				...state,
-				methodFilter: [...state.methodFilter, action.data],
-			};
-		case 'REMOVE_FROM_METHOD_FILTER':
-			return {
-				...state,
-				methodFilter: state.methodFilter.filter(el => el !== action.data),
-			};
+		case 'CHANGE_FILTER':
+			const { category, filter } = action.data;
+			if (category === '가공 방식') {
+				return {
+					...state,
+					methodFilter: filter,
+				};
+			} else {
+				return {
+					...state,
+					materialFilter: filter,
+				};
+			}
 
 		default: {
 			return state;

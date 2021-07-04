@@ -1,16 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Dropdown, Checkbox, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { StyledButton } from './styles';
 
-const MethodSelector = ({ list, title }) => {
+const MethodSelector = ({ category, count, status, setStatus, list }) => {
 	const dispatch = useDispatch();
-	const selectedCount = useSelector(state =>
-		title === '재료' ? state.materialFilter : state.methodFilter,
-	).length;
 
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -20,44 +17,37 @@ const MethodSelector = ({ list, title }) => {
 
 	const onClickCheckbox = useCallback(
 		e => {
-			const { name, checked } = e.target;
-			let type = '';
-
-			if (title === '재료') {
-				if (checked) {
-					type = 'ADD_TO_MATERIAL_FILTER';
-				} else {
-					type = 'REMOVE_FROM_MATERIAL_FILTER';
-				}
-			} else {
-				if (checked) {
-					type = 'ADD_TO_METHOD_FILTER';
-				} else {
-					type = 'REMOVE_FROM_METHOD_FILTER';
-				}
-			}
-
-			let action = {
-				type,
-				data: name,
-			};
-
-			dispatch(action);
+			const { name } = e.target;
+			setStatus(state => ({ ...state, [name]: !state[name] }));
 		},
-		[title, dispatch],
+		[setStatus],
 	);
 
-	const menu = (
-		<Menu>
-			{list.map((el, idx) => (
-				<Menu.Item key={idx}>
-					<Checkbox onChange={onClickCheckbox} name={el}>
-						{el}
-					</Checkbox>
-				</Menu.Item>
-			))}
-		</Menu>
-	);
+	useEffect(() => {
+		dispatch({
+			type: 'CHANGE_FILTER',
+			data: {
+				category,
+				filter: Object.keys(status).filter(el => status[el]),
+			},
+		});
+	}, [status, category, dispatch]);
+
+	const menu = useMemo(() => {
+		return (
+			<Menu>
+				{list.map((el, idx) => {
+					return (
+						<Menu.Item key={idx}>
+							<Checkbox onChange={onClickCheckbox} name={el} checked={status[el]}>
+								{el}
+							</Checkbox>
+						</Menu.Item>
+					);
+				})}
+			</Menu>
+		);
+	}, [status, list, onClickCheckbox]);
 
 	return (
 		<Dropdown
@@ -67,8 +57,8 @@ const MethodSelector = ({ list, title }) => {
 			trigger={['click']}
 		>
 			<StyledButton>
-				{title}
-				{`(${selectedCount})`}
+				{category + `(${count})`}
+				{/* {`(${selectedFilter.length})`} */}
 				<DownOutlined />
 			</StyledButton>
 		</Dropdown>

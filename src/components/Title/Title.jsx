@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -15,22 +15,41 @@ import Selector from '../Selector/Selector';
 import StatusSelector from '../StatusSelector/StatusSelector';
 
 const Title = () => {
+	const dispatch = useDispatch();
+	const materialFilterLength = useSelector(state => state.materialFilter).length;
+	const methodFilterLength = useSelector(state => state.methodFilter).length;
 	const materialList = useSelector(state => state.materialList);
 	const methodList = useSelector(state => state.methodList);
-	const isMaterialFilter = useSelector(state => state.materialFilter).length;
-	const isMethodFilter = useSelector(state => state.methodFilter).length;
 
-	const dispatch = useDispatch();
+	const initialMaterialStatus = useMemo(
+		() =>
+			materialList.reduce((obj, key) => {
+				obj[key] = false;
+				return obj;
+			}, {}),
+		[materialList],
+	);
 
-	const unCheckAll = () => {
-		return false;
-	};
+	const initialMethodStatus = useMemo(
+		() =>
+			methodList.reduce((obj, key) => {
+				obj[key] = false;
+				return obj;
+			}, {}),
+		[methodList],
+	);
+
+	const [materialStatus, setMaterialStatus] = useState(initialMaterialStatus);
+
+	const [methodStatus, setMethodStatus] = useState(initialMethodStatus);
 
 	const onClickReset = useCallback(() => {
 		dispatch({
 			type: 'RESET',
 		});
-	}, [dispatch]);
+		setMaterialStatus(initialMaterialStatus);
+		setMethodStatus(initialMethodStatus);
+	}, [dispatch, setMaterialStatus, setMethodStatus, initialMethodStatus, initialMaterialStatus]);
 
 	return (
 		<TitleWrapper>
@@ -40,9 +59,21 @@ const Title = () => {
 			</PageDescription>
 			<ConditionWrapper>
 				<SelectorWrapper>
-					<Selector list={methodList} title={'가공방식'} />
-					<Selector list={materialList} title={'재료'} />
-					{(isMaterialFilter !== 0 || isMethodFilter !== 0) && (
+					<Selector
+						list={methodList}
+						category="가공 방식"
+						status={methodStatus}
+						setStatus={setMethodStatus}
+						count={methodFilterLength}
+					/>
+					<Selector
+						list={materialList}
+						category="재료"
+						status={materialStatus}
+						setStatus={setMaterialStatus}
+						count={materialFilterLength}
+					/>
+					{(materialFilterLength !== 0 || methodFilterLength !== 0) && (
 						<ResetWrapper onClick={onClickReset}>
 							<StyledRedoOutlined />
 							<span> 필터링 리셋</span>
