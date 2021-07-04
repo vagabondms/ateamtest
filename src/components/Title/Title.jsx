@@ -17,8 +17,14 @@ import StatusSelector from '../StatusSelector/StatusSelector';
 const Title = () => {
 	const materialList = useSelector(state => state.materialList);
 	const methodList = useSelector(state => state.methodList);
+	const isMaterialFilter = useSelector(state => state.materialFilter).length;
+	const isMethodFilter = useSelector(state => state.methodFilter).length;
 
 	const dispatch = useDispatch();
+
+	const unCheckAll = () => {
+		return false;
+	};
 
 	const onClickReset = useCallback(() => {
 		dispatch({
@@ -36,10 +42,12 @@ const Title = () => {
 				<SelectorWrapper>
 					<Selector list={methodList} title={'가공방식'} />
 					<Selector list={materialList} title={'재료'} />
-					<ResetWrapper>
-						<StyledRedoOutlined onClick={onClickReset} />
-						<span> 필터링 리셋</span>
-					</ResetWrapper>
+					{(isMaterialFilter !== 0 || isMethodFilter !== 0) && (
+						<ResetWrapper onClick={onClickReset}>
+							<StyledRedoOutlined />
+							<span> 필터링 리셋</span>
+						</ResetWrapper>
+					)}
 				</SelectorWrapper>
 				<StatusSelector />
 			</ConditionWrapper>

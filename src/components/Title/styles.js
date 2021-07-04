@@ -36,7 +36,6 @@ export const ConditionWrapper = styled.div`
 `;
 
 export const SelectorWrapper = styled.div`
-	width: 310px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
